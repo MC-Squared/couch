@@ -5,7 +5,7 @@ class Mattress < SolidRuby::Printed
     @x = 92 + 8
     @y = 188 + 12
     @z = 20
-    @color = 'Grey'
+    @color = 'LightYellow'
 
   end
 
