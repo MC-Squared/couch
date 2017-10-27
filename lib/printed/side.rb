@@ -1,14 +1,21 @@
 class Side < SolidRuby::Printed
-  def initialize(mattress_w = 90, mattress_l = 180)
-    @board_w = 5
   attr_accessor :board_w, :board_l, :board_h
+  def initialize(mattress_w = 1, mattress_l = 1)
+    @board_w = 10
     @board_h = 20
     @board_l = (mattress_w + mattress_l + @board_w*4)/3.0
     @board_c = 3 #how many boards
+    super()
+    BillOfMaterial.bom.add(description)
+    BillOfMaterial.bom.add(description)
+  end
 
+  def description
+    "#{@board_h*10}mmx#{@board_w*10}mm board: %.2fmm" % @board_l
   end
 
   def part(_show)
+
     res = nil
     (1..@board_c).each do |i|
       res += (cube(@board_w, @board_l, @board_h).center_xy -
