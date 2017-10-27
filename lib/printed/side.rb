@@ -1,8 +1,9 @@
 class Side < SolidRuby::Printed
   def initialize(mattress_w = 90, mattress_l = 180)
     @board_w = 5
+  attr_accessor :board_w, :board_l, :board_h
     @board_h = 20
-    @board_l = (mattress_w + mattress_l + board_w*4)/3.0
+    @board_l = (mattress_w + mattress_l + @board_w*4)/3.0
     @board_c = 3 #how many boards
 
   end
