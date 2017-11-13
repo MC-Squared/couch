@@ -1,7 +1,9 @@
 class CouchAssembly < SolidRuby::Assembly
 
   # Assemblies are used to show how different parts interact on your design.
-
+  def initialize
+    super(no_bom: true)
+  end
   # Skip generation of the 'output' method for this assembly.
   # (will still generate 'show')
   skip :output
@@ -17,11 +19,11 @@ class CouchAssembly < SolidRuby::Assembly
   end
 
   def part(show)
-    m = Mattress.new
+    m = Mattress.new(true)
     res = m
-    res += Mattress.new
+    res += Mattress.new(true)
       .rotate(z: 90)
-      .translate(x: m.y/2.0 + m.x/2.0, y: m.x/2.0 + (m.y/2.0 - m.x))
+      .translate(x: $mattress_l/2.0 + $mattress_w/2.0, y: $mattress_w/2.0 + ($mattress_l/2.0 - $mattress_w))
       .color("PowderBlue")
 
     res.translate(z: 20)

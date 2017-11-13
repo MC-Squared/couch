@@ -1,16 +1,16 @@
-class Mattress < SolidRuby::Printed
-  def initialize
-    # Here is a good place to define instance variables that make your part parametric.
-    # These variables are accessible from outside:
-    @x = 92 + 8
-    @y = 188 + 12
-    @z = 20
-    @color = 'LightYellow'
+require_relative 'params'
 
+class Mattress < SolidRuby::Printed
+  def initialize(bom=false)
+    super(no_bom: !bom)
+    @color = 'LightYellow'
+  end
+
+  def description
+    "#{$mattress_w*10}x#{$mattress_l*10}mm mattress"
   end
 
   def part(_show)
-    cube(@x, @y, @z).center_xy.color(@color)
+    cube($mattress_w, $mattress_l, $mattress_h).center_xy.color(@color)
   end
-
 end
