@@ -38,48 +38,29 @@ class CouchAssembly < SolidRuby::Assembly
         .translate(y: -($panel_t + $drawer_gap)/2.0, z: $panel_t + $drawer_gap)
   end
 
-  def part(show)
+  def one_side
     res = Mattress.new(true)
-    res += Mattress.new(true)
-      .rotate(z: 90)
-      .translate(x: $mattress_l/2.0 + $mattress_w/2.0, y: $mattress_w/2.0 + ($mattress_l/2.0 - $mattress_w))
-      .color("PowderBlue")
+      .translate(z: 20)
 
-    res.translate(z: 20)
-
-    s = side.rotate(z: 180)
-
-    back_y = $mattress_w/2.0 + ($mattress_l/2.0 - $mattress_w) + $mattress_w/2.0 + $frame_board_w/2.0
-
-    res += s.translate(x: -$mattress_w/2.0 - $frame_board_w/2.0, y: back_y - $frame_board_l/2.0)
-    res += side
-      .rotate(z: 90)
-      .translate(x: ($frame_board_l - $mattress_w)/2.0 - $frame_board_w, y: back_y) #$mattress_w + $frame_board_w/2.0)
-    res += side
-      .rotate(z: 90)
-      .translate(x: (($frame_board_l - $mattress_w)/2.0) + $frame_board_l - $frame_board_w*2, y: back_y)
-      .debug
-
-    res += side
-      .rotate(z: 90)
-      .translate(x: (($frame_board_l - $mattress_w)/2.0) + $frame_board_l*2 - $frame_board_w*3, y: back_y)
-    res += side
-      .translate(x: $mattress_w/2.0+$mattress_l+$frame_board_w/2.0, y: back_y - $frame_board_l/2.0)
+    res += side.translate(x: -$mattress_w/2.0 - $frame_board_w/2.0, y: -($mattress_l/2.0 - $frame_board_l/2.0) - $frame_board_w)
+    res += side.translate(x: -$mattress_w/2.0 - $frame_board_w/2.0, y: $mattress_l/2.0 - $frame_board_l/2.0 + $frame_board_w).debug
+    res += side.rotate(z: -90)
+      .translate(y: $mattress_l/2.0 + $frame_board_w/2.0)
 
     (0..3).each do |i|
       res += drawer_cube($drawer_w, $drawer_d, $drawer_h)
-        .translate(x: $drawer_w/2.0 + $mattress_l - (i * $drawer_w) - (i * 1), y: $drawer_d/2.0)
+        .rotate(z: 90)
+        .translate(y: -$drawer_w*1.5 + (i * $drawer_w) + (i * 1) - 2)
     end
+        #.translate(x: $drawer_w/2.0 + $mattress_l - (i * $drawer_w) - (i * 1), y: $drawer_d/2.0)
+    res
+  end
 
-    # res += DrawerAssembly.new(drawer_w: drawer_w, board_h: $frame_board_h)
-    #   .translate(x: 0, y: $mattress_w/2.0)
-    #
-    # res += DrawerAssembly.new(drawer_w: drawer_w, board_h: $frame_board_h)
-    #   .translate(x: $mattress_w*2.0, y: $mattress_w/2.0)
-    # res += DrawerAssembly.new(drawer_w: drawer_w, board_h: $frame_board_h)
-    #   .translate(x: $mattress_w, y: $mattress_w/2.0)
-    # res += DrawerAssembly.new(drawer_w: drawer_w, board_h: $frame_board_h)
-    #   .translate(y: -$frame_board_l/2.0)
+  def part(show)
+    res = one_side
+    res += one_side
+      .rotate(z: -90)
+      .translate(x: $mattress_l/2.0 + $mattress_w/2.0, y: $mattress_w/2.0)
 
     res
   end

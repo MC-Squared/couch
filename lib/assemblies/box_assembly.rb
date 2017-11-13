@@ -8,6 +8,7 @@ class BoxAssembly < SolidRuby::Assembly
 
     @front = args[:front] || false
     @top = args[:top] || false
+    super(no_bom: true)
   end
 
   def part(_show)

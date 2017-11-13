@@ -1,11 +1,10 @@
-2 x 1000.0x2000.0mm 15.0mm plywood
 4 x 1485.0x2000.0mm 15.0mm plywood
-2 x 970.0x1485.0mm 15.0mm plywood
+2 x -20.0x1485.0mm 15.0mm plywood
 2 x 1000x2000mm mattress
-15 x 200x100mm board: 113.33mm
-8 x 490.0x950.0mm 15.0mm plywood
-8 x 170.0x950.0mm 15.0mm plywood
-4 x 460.0x170.0mm 15.0mm plywood
-4 x 440.0x925.0mm 15.0mm plywood
-8 x 135.0x925.0mm 15.0mm plywood
-8 x 410.0x135.0mm 15.0mm plywood
+18 x 200x100mm board: 113.33mm
+16 x 490.0x950.0mm 15.0mm plywood
+16 x 170.0x950.0mm 15.0mm plywood
+8 x 460.0x170.0mm 15.0mm plywood
+8 x 440.0x925.0mm 15.0mm plywood
+16 x 135.0x925.0mm 15.0mm plywood
+16 x 410.0x135.0mm 15.0mm plywood
