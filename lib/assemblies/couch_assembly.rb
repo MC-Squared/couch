@@ -1,3 +1,5 @@
+require_relative '../printed/params'
+
 class CouchAssembly < SolidRuby::Assembly
 
   # Assemblies are used to show how different parts interact on your design.
@@ -18,9 +20,26 @@ class CouchAssembly < SolidRuby::Assembly
     res = res.color("Sienna")
   end
 
+  def drawer(x, y, z)
+    BoxAssembly.new(x: x, y: y, z: z, top: false, front: true).show
+      .color("PeachPuff")
+  end
+
+  def drawer_frame(x, y, z)
+    BoxAssembly.new(x: x, y: y, z: z, top: true, front: false).show
+  end
+
+  def drawer_cube(x, y, z)
+    res = drawer_frame(x, y, z)
+    res += drawer(
+      x - $panel_t*2.0 - $drawer_gap*2.0,
+      y - $panel_t - $drawer_gap,
+      z - $panel_t*2.0 - $drawer_gap*2.0)
+        .translate(y: -($panel_t + $drawer_gap)/2.0, z: $panel_t + $drawer_gap)
+  end
+
   def part(show)
-    m = Mattress.new(true)
-    res = m
+    res = Mattress.new(true)
     res += Mattress.new(true)
       .rotate(z: 90)
       .translate(x: $mattress_l/2.0 + $mattress_w/2.0, y: $mattress_w/2.0 + ($mattress_l/2.0 - $mattress_w))
@@ -46,18 +65,21 @@ class CouchAssembly < SolidRuby::Assembly
       .translate(x: (($frame_board_l - $mattress_w)/2.0) + $frame_board_l*2 - $frame_board_w*3, y: back_y)
     res += side
       .translate(x: $mattress_w/2.0+$mattress_l+$frame_board_w/2.0, y: back_y - $frame_board_l/2.0)
-    # always make sure the lowest statement always returns the object that you're working on
-    drawer_w = $frame_board_l - 10
 
-    res += DrawerAssembly.new(drawer_w: drawer_w, board_h: $frame_board_h)
-      .translate(x: 0, y: $mattress_w/2.0)
+    (0..3).each do |i|
+      res += drawer_cube($drawer_w, $drawer_d, $drawer_h)
+        .translate(x: $drawer_w/2.0 + $mattress_l - (i * $drawer_w) - (i * 1), y: $drawer_d/2.0)
+    end
 
-    res += DrawerAssembly.new(drawer_w: drawer_w, board_h: $frame_board_h)
-      .translate(x: $mattress_w*2.0, y: $mattress_w/2.0)
-    res += DrawerAssembly.new(drawer_w: drawer_w, board_h: $frame_board_h)
-      .translate(x: $mattress_w, y: $mattress_w/2.0)
-    res += DrawerAssembly.new(drawer_w: drawer_w, board_h: $frame_board_h)
-      .translate(y: -$frame_board_l/2.0)
+    # res += DrawerAssembly.new(drawer_w: drawer_w, board_h: $frame_board_h)
+    #   .translate(x: 0, y: $mattress_w/2.0)
+    #
+    # res += DrawerAssembly.new(drawer_w: drawer_w, board_h: $frame_board_h)
+    #   .translate(x: $mattress_w*2.0, y: $mattress_w/2.0)
+    # res += DrawerAssembly.new(drawer_w: drawer_w, board_h: $frame_board_h)
+    #   .translate(x: $mattress_w, y: $mattress_w/2.0)
+    # res += DrawerAssembly.new(drawer_w: drawer_w, board_h: $frame_board_h)
+    #   .translate(y: -$frame_board_l/2.0)
 
     res
   end
